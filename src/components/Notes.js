@@ -2,23 +2,29 @@ import React, { useContext, useEffect, useState, useRef } from 'react'
 import noteContext from '../context/notes/noteContext';
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
-const Notes = () => {
+import { useNavigate } from 'react-router-dom';
+const Notes = (props) => {
     const context = useContext(noteContext);
     const { notes, getAllNotes, editNote } = context;
-    console.log("notes", notes)
+    const navigate=useNavigate();
+    //console.log("notes", notes)
     const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
     useEffect(() => {
-        getAllNotes();
+        if(localStorage.getItem('token'))
+            getAllNotes();
+        else
+            navigate('/login')
         // eslint-disable-next-line
     }, [])
 
     const ref = useRef(null)
     const refClose = useRef(null)
     const handleClick = (e) => {
-        console.log("handleclick is triggered", note)
+       // console.log("handleclick is triggered", note)
         e.preventDefault()
         editNote(note.id, note.etitle, note.edescription, note.etag)
         refClose.current.click()
+        props.showAlert("Note has been updated successfully","success")
     }
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
@@ -29,7 +35,7 @@ const Notes = () => {
     }
     return (
         <>
-            <AddNote />
+            <AddNote showAlert={props.showAlert}/>
             <button ref={ref} type="button" className="btn d-none" data-bs-toggle="modal" data-bs-target="#updateNote">Launch Modal</button>
             <div className="modal" tabIndex="-1" id="updateNote">
                 <div className="modal-dialog">
@@ -43,15 +49,15 @@ const Notes = () => {
                                 <form>
                                     <div className="mb-3">
                                         <label htmlFor="title" className="form-label">Title</label>
-                                        <input type="text" className="form-control" id="etitle" name="etitle" value={note.etitle} aria-describedby="emailHelp" onChange={onChange} />
+                                        <input type="text" className="bg-input form-control" id="etitle" name="etitle" value={note.etitle} aria-describedby="emailHelp" onChange={onChange} />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="description" className="form-label">Description</label>
-                                        <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onChange} />
+                                        <input type="text" className="bg-input form-control bg-secondary" id="edescription" name="edescription" value={note.edescription} onChange={onChange} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label" htmlFor="tag">Tag</label>
-                                        <input type="text" className="form-control" id="etag" name="etag" value={note.etag} onChange={onChange} />
+                                        <input type="text" className="bg-input form-control" id="etag" name="etag" value={note.etag} onChange={onChange} />
                                     </div>
                                 </form>
                             </div>
@@ -63,11 +69,11 @@ const Notes = () => {
                     </div>
                 </div>
             </div>
-            <div className="container my-3">
+            <div className="container p-2 mx-3 my-3">
                 <h3>Your Notes</h3>
-                <div className="container row">
+                <div className="container p-0 row">
                     {notes.map((note) => {
-                        return <NoteItem key={note._id} updateNote={updateNote} note={note} />
+                        return <NoteItem key={note._id} showAlert={props.showAlert} updateNote={updateNote} note={note} />
                     })}
                 </div>
             </div>

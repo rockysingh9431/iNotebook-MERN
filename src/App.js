@@ -34,7 +34,7 @@ function App() {
             <Routes>
               <Route path="Home/*" element={<Home showAlert={showAlert}/>} />
               <Route path="About/*" element={<About />} />
-              <Route path="Login/*" element={<Login showAlert={showAlert}/>} />
+              <Route path="/*" element={<Login showAlert={showAlert}/>} />
               <Route path="SignUp/*" element={<SignUp showAlert={showAlert}/>} />
             </Routes>
           </div>

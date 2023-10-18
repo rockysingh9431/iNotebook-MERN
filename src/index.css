@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(270deg,rgb(252, 148, 217),#bdf86f);
 }
 
 code {
@@ -19,9 +20,9 @@ nav{
 }
 .login{
   margin-top: 30px;
-  height: 23vmax;
+  height: auto;
   width: 50%;
-  background-color: rgb(121, 238, 183);
+  /* background-color: rgb(247, 223, 252); */
   padding: 10px;
 }
 .Home{
@@ -29,6 +30,26 @@ nav{
   width: 70%;
 
 }
+.bg-input {
+  background-color: rgb(250, 217, 234);
+}
+.bg-notes{
+  background-color: rgb(183, 215, 245);
+}
 .SignUp{
-  background-color: rgb(121, 238, 183);
+  justify-content: end;
+}
+.icon-container {
+  position:relative;
+  top:2px;
+  size:fixed;
+  height: 20px;
+  width:60px;
+  margin: 0px;
+  padding: 0px;
+}
+.title-container
+{
+  width: 230px;
+  height:auto;
 }
