@@ -8,7 +8,7 @@ const jwtSecret="HelloThisisRockySingh"
 const fetchuser=require('../middleware/fetchuser')
 
 // Route1 // Create a User using POST "/api/auth/createuser". 
-
+let success=false;
 router.post('/createuser', [
     body('name', 'enter a valid name').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
@@ -41,7 +41,8 @@ router.post('/createuser', [
             }
         }
         const authToken=jwt.sign(data,jwtSecret)
-        res.json({authToken})
+        success=true;
+        res.json({success,authToken})
     }
     catch (error) {
         console.error(error.message)
@@ -77,7 +78,8 @@ router.post('/login', [
             } 
         }
         const authToken=jwt.sign(payload,jwtSecret)
-        res.json({authToken})
+        success=true;
+        res.json({success,authToken})
     }
     catch (error) {
         console.error(error.message)
@@ -91,7 +93,8 @@ router.post('/getuser', fetchuser, async (req, res) => {
     try {
         const userId=req.user.id
         const user=await User.findById(userId).select('-password')
-        res.send(user)
+        success=true;
+        res.send(success,user)
     } catch (error) {
         console.error(error.message)
         res.status(500).send("some error occured")

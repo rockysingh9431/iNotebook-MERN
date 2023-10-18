@@ -14,3 +14,21 @@ code {
 i{
   cursor:pointer;
 }
+nav{
+  background-color:#00000a ;
+}
+.login{
+  margin-top: 30px;
+  height: 23vmax;
+  width: 50%;
+  background-color: rgb(121, 238, 183);
+  padding: 10px;
+}
+.Home{
+  height:auto;
+  width: 70%;
+
+}
+.SignUp{
+  background-color: rgb(121, 238, 183);
+}

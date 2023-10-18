@@ -6,7 +6,7 @@ const NoteState = (props) => {
     const notesInitial = []
     // UseState hook to update notes
     const [notes, setNotes] = useState(notesInitial)
-
+ 
     // Function to fetch all notes from server
     const getAllNotes = async () => {
         const response = await fetch(`${host}/api/notes/fetchAllNotes`, {
@@ -17,7 +17,6 @@ const NoteState = (props) => {
             },
         });
         const json =await response.json();
-        console.log(json)
         setNotes(json)
     }
 
@@ -46,8 +45,7 @@ const NoteState = (props) => {
                 "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRlNGIwZWZmMzhjY2Y0NzYyMzQ5MTk2In0sImlhdCI6MTY5MzM4ODM1MX0.367os9XzF3JU2kzHMUl17QZdO77wIJoD1qWeLyZZZqI"
             },
         });
-        const json = await response.json();
-        console.log(json)
+        response.json();
 
         setNotes(notes.filter((note) => { return note._id !== id }))
     }
@@ -55,7 +53,6 @@ const NoteState = (props) => {
     // Function to edit note
     const editNote = async (id, title, description, tag) => {
         //API CALL
-       // console.log("id",id)
         const response = await fetch(`${host}/api/notes/updateNote/${id}`, {
             method: "PUT",
             headers: {
@@ -64,8 +61,7 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({ title, description, tag })
         });
-        const json = await response.json();
-        console.log("json",json)
+        response.json();
 
         // Edit Note
         let newNotes=JSON.parse(JSON.stringify(notes));
@@ -79,7 +75,6 @@ const NoteState = (props) => {
             }
         }
         setNotes(newNotes)
-        console.log("editNote:",notes,typeof(notes))
     }
     return (
         <noteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote, getAllNotes }}>

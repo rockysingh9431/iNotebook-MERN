@@ -5,6 +5,7 @@ const Note = require('../models/Note.js')
 const fetchuser = require('../middleware/fetchuser.js')
 
 // Route 1 Endpoints to FetchAllNotes using GET
+
 router.get('/fetchAllNotes', fetchuser, async (req, res) => {
     try {
         const notes = await Note.find({ user: req.user.id })
