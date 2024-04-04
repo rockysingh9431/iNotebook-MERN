@@ -9,10 +9,6 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const port = process.env.PORT;
 
-app.get("/", (req, res) => {
-  res.send("Hello World! API is Running");
-});
-
 //Available routes
 app.use(express.json());
 app.use(cookieParser());
@@ -26,6 +22,10 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) =>
     res.sendFile(path.resolve(_dirname, "frontend", "build", "index.html"))
   );
+} else {
+  app.get("/", (req, res) => {
+    res.send("Hello World! API is Running");
+  });
 }
 app.listen(port, () => {
   console.log(`iNotebook App listening on port ${port}`);
